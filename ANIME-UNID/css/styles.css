@@ -67,12 +67,14 @@ nav ul a:hover {
 }
 
 #search {
+  
   display: flex;
   align-items: center;
   width: 300px;
 }
 
 #search input {
+ 
   width: 80%;
   height: 35px;
   padding: 5px;

@@ -17,7 +17,7 @@
           <li><a href="#">Directorio Anime</a></li>
         </ul>
         <div id="search">
-        <form action="index.php" method="POST">
+        <form action="directorio.php" method="POST">
                         <input type="text" placeholder="Buscar..." name="texto">
                         <input type="submit" name="search" value="🔍">
                     </form>
@@ -27,30 +27,8 @@
     </div>
   </header>
   <section id="main">
-    <h2>Últimos episodios</h2>
-    <div class="episodes">
-        <?php 
-        require_once 'clases/videos.php';
-                $videos = new Video("localhost", "root", "", "anime");
-
-            $result = (isset($_POST['search'])) ? 
-            $videos->search($_POST['texto']) :
-            $videos->get_videos();
-
-        while ($row = $result->fetch_array()){
-          ?>
-          <div class="episode">
-        <p class="icon">►</p>
-        <img src="<?php echo $row['thumbnail']; ?>"
-         alt="">
-        <div class="episode_description">
-          <p class="episode_number">Episodio <?php echo $row['episodio']; ?></p>
-          <h3 class="episode_title"><?php echo $row['titulo']; ?></h3>
-        </div>
-      </div>
-          <?php  
-        }
-        ?>  
+   
+       
 
         
     </div>

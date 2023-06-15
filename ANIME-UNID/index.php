@@ -23,8 +23,7 @@
                     </form>
         </div>
         <a href="login.php" class="login">🥷🏽 Login</a>
-        <a href="login.php" class="login"> Registro</a>
-        <a href="login.php" class="login"> Recuperar contrasena</a>
+        
 
       </nav>
     </div>
@@ -59,32 +58,7 @@
     </div>
     </div>
 
-    <h2> episodios destacados</h2>
-    <div class="episodes">
-        <?php 
-        require_once 'clases/videos.php';
-                $Listas = new Lista("localhost", "root", "", "anime");
-            
-            $result = (isset($_POST['search'])) ? 
-            $Listas->search($_POST['texto']) :
-            $Listas->get_listas();
-
-        while ($row = $result->fetch_array()){
-          ?>
-          <div class="episode">
-        <p class="icon">►</p>
-        <img src="<?php echo $row['thumbnail']; ?>"
-         alt="">
-        <div class="episode_description">
-          <p class="episode_number">year <?php echo $row['anio']; ?></p>
-          <h3 class="episode_title"><?php echo $row['nombre']; ?></h3>
-        </div>
-      </div>
-          <?php  
-        }
-        
-        ?>  
-    </div>
+    
 
     <div id="result">
         <?php
@@ -100,9 +74,9 @@
         while ($row = mysqli_fetch_array($results)) {
             ?>
             <div class="item">
-                <h2><?php echo $row['nombre']; ?></h2>
-                <h3><?php echo $row['anio']; ?></h3>
-                <p><?php echo $row['fecha_insercion']; ?></p>
+                <h2><?php echo $row['titulo']; ?></h2>
+                <h3><?php echo $row['episodio']; ?></h3>
+                <p><?php echo $row['fecha_publicacion']; ?></p>
 
             </div>
             <?php 

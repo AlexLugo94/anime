@@ -1,34 +1,48 @@
 <?php
 
-session_start(); 
+class ConexionDB {
+    private $servername = "localhost";
+    private $username = "root";
+    private $password = "";
+    private $dbname = "anime";
+    private $conn;
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "anime";
+    public function __construct() {
+        $this->conn = new mysqli($this->servername, $this->username, $this->password, $this->dbname);
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $usuario = $_POST["usuarios"];
-    $contrasena = $_POST["contrasena"];
-
-    
-    if ($conn->connect_error) {
-        die("Error de conexión: " . $conn->connect_error);
+        if ($this->conn->connect_error) {
+            die("Error de conexión: " . $this->conn->connect_error);
+        }
     }
 
-    $query = "SELECT * FROM usuarios WHERE correo = '$usuario' AND contrasena = '$contrasena'";
-    $result = $conn->query($query);
+    public function iniciarSesion() {
+        session_start();
 
-    if ($result->num_rows == 1) {
-        $_SESSION["usuarios"] = $usuario;
-        echo "Inicio de sesión exitoso.  $usuario!";
-    } else {
-        echo "Usuario o contraseña incorrectos.";
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $usuario = $_POST["email"];
+            $contrasena = $_POST["password"];
+
+            $query = "SELECT * FROM usuarios WHERE correo = '$usuario' AND contrasena = '$contrasena'";
+            $result = $this->conn->query($query);
+
+            if ($result->num_rows == 1) {
+                $_SESSION["usuarios"] = $usuario;
+                echo "Inicio de sesión exitoso. $usuario!";
+            } else {
+                echo "Usuario o contraseña incorrectos.";
+            }
+        }
+        
+        $this->conn->close();
     }
-
-    $conn->close();
 }
 
+$conexion = new ConexionDB();
+$conexion->iniciarSesion();
+
 ?>
+
+
+
+
+
